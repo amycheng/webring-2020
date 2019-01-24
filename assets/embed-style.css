@@ -24,3 +24,11 @@
 .webring-link {
   color: white;
 }
+
+.webring-join-copy {
+  font-family: sans-serif;
+}
+
+.webring-join-copy a {
+  color: white;
+}

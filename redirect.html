@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <title>Redirecting</title>
+  </head>
+  <body>
+    <h2>redirecting...</h2>
+    <script type="text/javascript">
+      (async function(){
+        const params = new URLSearchParams(window.location.search);
+        const action = params.get('action');
+        const member = decodeURIComponent(params.get('member'));
+        const pages = await fetch('pages.json').then((res)=>res.json()).then((res)=>res.pages);
+        const memberIndex = pages.indexOf(member) ? pages.indexOf(member) : 0;
+        const getIndex = (index)=>{
+          if (index > pages.length) {
+            return pages.length-1
+          } else if (index < 0) {
+            return 0;
+          } else {
+            return index;
+          }
+        };
+
+        switch(action) {
+          case 'next':
+            window.location.href = pages[getIndex(memberIndex+1)];
+            break;
+          case 'prev':
+            window.location.href = pages[getIndex(memberIndex-1)];
+            break;
+          case 'random':
+            window.location.href = pages[Math.floor(Math.random() * pages.length)];
+            break;
+          default:
+            break;
+        }
+      })()
+    </script>
+  </body>
+</html>
